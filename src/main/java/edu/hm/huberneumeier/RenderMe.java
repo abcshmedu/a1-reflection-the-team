@@ -11,7 +11,5 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RenderMe {
-    String with() default "";
-
-
+    Class<? extends IRender> with() default Renderer.class;
 }

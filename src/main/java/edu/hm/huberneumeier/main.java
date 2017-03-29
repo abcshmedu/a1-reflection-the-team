@@ -11,6 +11,6 @@ public class main {
     public static void main(String[] args) {
         SomeClass someClass = new SomeClass(42);
         Renderer renderer = new Renderer(someClass);
-        renderer.render();
+        System.out.println(renderer.render());
     }
 }

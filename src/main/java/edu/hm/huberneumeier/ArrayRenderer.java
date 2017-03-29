@@ -6,26 +6,25 @@ package edu.hm.huberneumeier;
  * @version 2017-03-29
  * @created by Tobias Huber on 29.03.2017
  */
-public class ArrayRenderer extends Renderer {
+public class ArrayRenderer implements IRender{
+    private int[] toRender;
 
-    public ArrayRenderer(SomeClass toRender) {
-        super(toRender);
+    public ArrayRenderer(Object toRender) {
+        this.toRender = (int[])toRender;
     }
 
-    @Override
     public String render(){
-        //for (Field field : getaObject().getClass().getDeclaredFields()) {
-        //    field.setAccessible(true);
-        //    Object value = null;
-        //    try {
-        //        value = field.get(getaObject());
-        //    } catch (IllegalAccessException e) {
-        //        e.printStackTrace();
-        //    }
-        //    if (value != null) {
-        //        System.out.println(field.getName() + "=" + value);
-        //    }
-        //}
-        return "";
+        String renderedArray = "[";
+        for(int i= 0; i < getToRender().length; i++){
+            renderedArray += getToRender()[i] + ", ";
+        }
+        if(renderedArray.length() > 2)
+            renderedArray = renderedArray.substring(0,renderedArray.length()-2);
+        renderedArray += "]";
+        return renderedArray;
+    }
+
+    private int[] getToRender() {
+        return toRender;
     }
 }
