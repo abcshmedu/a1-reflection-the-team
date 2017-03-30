@@ -1,4 +1,5 @@
 /**
+ * Example class to render.
  *
  * @author Tobias Huber, Andreas Neumeier
  * @version 2017-03-29

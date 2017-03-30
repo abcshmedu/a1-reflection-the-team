@@ -4,6 +4,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
+ * Render annotation used in this example.
  *
  * @author Tobias Huber, Andreas Neumeier
  * @version 2017-03-29
@@ -11,5 +12,6 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RenderMe {
-    Class<? extends IRender> with() default Renderer.class;
+    //possible parameters, which can be passed by using the annotation
+    Class<? extends IRenderer> with() default Renderer.class;
 }
