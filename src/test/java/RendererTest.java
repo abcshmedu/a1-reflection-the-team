@@ -7,10 +7,10 @@ import static org.junit.Assert.assertEquals;
 
 
 /**
+ * Tests for the renders.
  *
  * @author Tobias Huber, Andreas Neumeier
  * @version 2017-03-29
- * @created by Tobias Huber on 29.03.2017
  */
 
 public class RendererTest {

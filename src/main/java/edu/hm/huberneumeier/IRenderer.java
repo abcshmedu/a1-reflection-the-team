@@ -5,7 +5,6 @@ package edu.hm.huberneumeier;
  *
  * @author Tobias Huber
  * @version 2017-03-29
- * @created by Tobias Huber on 29.03.2017
  */
 public interface IRenderer {
     String render();

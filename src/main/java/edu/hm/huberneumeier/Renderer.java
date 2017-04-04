@@ -9,7 +9,6 @@ import java.lang.reflect.InvocationTargetException;
  *
  * @author Tobias Huber, Andreas Neumeier
  * @version 2017-03-29
- * @created by Tobias Huber on 29.03.2017
  */
 public class Renderer implements IRenderer {
     private Object toRender;
@@ -19,7 +18,7 @@ public class Renderer implements IRenderer {
     }
 
     public String render() {
-        String renderedObject = "Instance of "+getToRender().getClass().getCanonicalName() + ":\n";
+        String renderedObject = "Instance of " + getToRender().getClass().getCanonicalName() + ":\n";
 
         for (Field field : getToRender().getClass().getDeclaredFields()) {
             //set field accessible (ignore private)
@@ -66,7 +65,7 @@ public class Renderer implements IRenderer {
         return toRender;
     }
 
-    private String getFieldAsString(Field field, String value){
+    private String getFieldAsString(Field field, String value) {
         //TODO get int[] instead of [I if field is an array
         return field.getName() + " (Type " + field.getType().getCanonicalName() + "): " + value + "\n";
     }
