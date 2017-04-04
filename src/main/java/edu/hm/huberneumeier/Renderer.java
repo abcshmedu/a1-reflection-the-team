@@ -34,13 +34,7 @@ public class Renderer implements IRenderer {
                     IRenderer render = annotation.with().getConstructor(Object.class).newInstance(field.get(getToRender()));
                     //call render to get string from
                     renderedObject += getFieldAsString(field, render.render());
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (NoSuchMethodException e) {
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                     e.printStackTrace();
                 }
             } else {

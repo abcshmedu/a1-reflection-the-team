@@ -30,5 +30,4 @@ public class RendererTest {
                 "foo (Type int): 5\n" +
                 "date (Type java.util.Date): Fri Jan 02 11:17:36 CET 1970\n", renderer.render());
     }
-
 }
