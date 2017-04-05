@@ -11,9 +11,9 @@ import java.util.Date;
 /**
  * A class for testing the Renderer and ArrayRenderer.
  */
-public class SomeClass {
+public class SomeClassWithMethod {
     @RenderMe(with = ArrayRenderer.class)
-    private int[] array = {1, 2, 3,};
+    int[] array = {1, 2, 3,};
     @RenderMe
     private int foo;
     @RenderMe
@@ -24,7 +24,15 @@ public class SomeClass {
      *
      * @param foo initialize foo
      */
-    public SomeClass(int foo) {
+    public SomeClassWithMethod(int foo) {
         this.foo = foo;
+    }
+
+    /**
+     * Method for testing.
+     */
+    @RenderMe
+    public int getTheNumber() {
+        return 42;
     }
 }

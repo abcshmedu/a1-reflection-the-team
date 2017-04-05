@@ -2,6 +2,7 @@ package edu.hm.huberneumeier;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Default Renderer, renders a object to a string.
@@ -28,14 +29,14 @@ public class Renderer implements IRenderer {
             RenderMe annotation = field.getAnnotation(RenderMe.class);
 
             //check if annotation is not equal to default
-            if (annotation.with() != Renderer.class) {
+            if (annotation != null && annotation.with() != Renderer.class) {
                 try {
                     //try to create a new object of renderer given by annotation
                     IRenderer render = annotation.with().getConstructor(Object.class).newInstance(field.get(getToRender()));
                     //call render to get string from
                     renderedObject += getFieldAsString(field, render.render());
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                    e.printStackTrace();
+                    e.printStackTrace(); //Runtime exception verwenden
                 }
             } else {
                 //get value of field
@@ -51,6 +52,26 @@ public class Renderer implements IRenderer {
                 }
             }
         }
+        for (Method method : getToRender().getClass().getDeclaredMethods()) {
+            //set field accessible (ignore private)
+            method.setAccessible(true);
+
+            //get annotation from field
+            RenderMe annotation = method.getAnnotation(RenderMe.class);
+
+            //Get value of method
+            Object value = null;
+            try {
+                value = method.invoke(getToRender());
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            //create string from field
+            if (value != null) {
+                renderedObject += getMethodAsString(method, value.toString());
+            }
+        }
+
         //return created string, it represents the object and all the marked fields
         return renderedObject;
     }
@@ -60,7 +81,10 @@ public class Renderer implements IRenderer {
     }
 
     private String getFieldAsString(Field field, String value) {
-        //TODO get int[] instead of [I if field is an array
         return field.getName() + " (Type " + field.getType().getCanonicalName() + "): " + value + "\n";
+    }
+
+    private String getMethodAsString(Method method, String value) {
+        return method.getName() + " (Type " + method.getReturnType().getCanonicalName() + "): " + value + "\n";
     }
 }
