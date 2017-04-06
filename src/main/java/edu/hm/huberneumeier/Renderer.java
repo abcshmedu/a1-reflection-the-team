@@ -14,10 +14,20 @@ import java.lang.reflect.Method;
 public class Renderer implements IRenderer {
     private Object toRender;
 
+    /**
+     * Default ctor.
+     *
+     * @param toRender  object to render
+     */
     public Renderer(Object toRender) {
         this.toRender = toRender;
     }
 
+    /**
+     * Renders the object got in ctor.
+     *
+     * @return returns a string with all rendered types
+     */
     public String render() {
         String renderedObject = "Instance of " + getToRender().getClass().getCanonicalName() + ":\n";
 
@@ -36,7 +46,7 @@ public class Renderer implements IRenderer {
                     //call render to get string from
                     renderedObject += getFieldAsString(field, render.render());
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                    e.printStackTrace(); //Runtime exception verwenden
+                    throw new RuntimeException();
                 }
             } else {
                 //get value of field
@@ -44,7 +54,7 @@ public class Renderer implements IRenderer {
                 try {
                     value = field.get(getToRender());
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException();
                 }
                 //create string from field
                 if (value != null) {
@@ -64,7 +74,7 @@ public class Renderer implements IRenderer {
             try {
                 value = method.invoke(getToRender());
             } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
+                throw new RuntimeException();
             }
             //create string from field
             if (value != null) {
@@ -76,14 +86,33 @@ public class Renderer implements IRenderer {
         return renderedObject;
     }
 
+    /**
+     * Getter for the object to render.
+     *
+     * @return  the object to render
+     */
     private Object getToRender() {
         return toRender;
     }
 
+    /**
+     * Format the gotten information and return it.
+     *
+     * @param field the field found in the object rendered
+     * @param value the value of the field
+     * @return  a string with all information about the rendered type
+     */
     private String getFieldAsString(Field field, String value) {
         return field.getName() + " (Type " + field.getType().getCanonicalName() + "): " + value + "\n";
     }
 
+    /**
+     * Format the gotten information and return it.
+     *
+     * @param method the method found in the object rendered
+     * @param value the value of the field
+     * @return  a string with all information about the rendered type
+     */
     private String getMethodAsString(Method method, String value) {
         return method.getName() + " (Type " + method.getReturnType().getCanonicalName() + "): " + value + "\n";
     }
